@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="exam_1_style.css">
+
+</head>
+<body>
+
+    <section>
+
+        <h1>Test</h1>
+        <form id="writeValue">
+            <label >Name/Value Pair</label>
+            <input type="text" name="text_input" id="textInput" placeholder="Name=Value" pattern="[a-zA-Z0-9 ]{1,}=+[a-zA-Z0-9 ]{1,}">
+            <input type="submit" value="Add" id="addValue">
+        </form>
+
+
+        <div>
+            <div class="blockList">
+                <p>Name/Value Pair List</p>
+                <div id="list"></div>
+            </div>
+            <div class="blockButton">
+                <button>Sort by Name</button>
+                <button>Sort by Value</button>
+                <button>Delete</button>
+            </div>
+        </div>
+
+    </section>
+
+<script src="exam_1_script.js"></script>
+
+</body>
+</html>
