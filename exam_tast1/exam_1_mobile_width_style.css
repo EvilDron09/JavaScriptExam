@@ -1,0 +1,33 @@
+@media screen and (max-width: 530px){
+    h1,form,section>div{
+        margin-left: 5vw;
+    }
+    #textInput,#boxList{
+        width: 70vw;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+    label{
+        margin-top: 20px;
+    }
+
+    #addValue{
+        width: 20vw;
+        margin: 10px 0;
+    }
+    section>div{
+        flex-direction: column;
+    }
+    #boxList{
+        height: 200px;
+    }
+    .blockButton{
+        align-items: start;
+        margin-left: 0;
+    }
+
+
+}

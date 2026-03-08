@@ -1,0 +1,15 @@
+@media screen and (max-height: 600px ){
+
+   section{
+       height: 95vh;
+   }
+    label{
+        margin-top: 5vh;
+    }
+
+    #boxList{
+        height: 45vh;
+        margin-bottom: 0;
+    }
+
+}

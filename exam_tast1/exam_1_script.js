@@ -1,6 +1,6 @@
 const writeValueForm = document.forms.writeValue;
 const inputText = document.getElementById('textInput');
-const listDiv = document.getElementById('list');
+const listDiv = document.getElementById('boxList');
 const buttonsBlock = document.getElementsByTagName('button');
 
 function Text (name,value){
@@ -20,7 +20,7 @@ writeValueForm.addEventListener('submit',(e) =>{
             const textInputName = textInputSplit[0].trim();
             const textInputValue = textInputSplit[1].trim();
             textList.push(new Text(textInputName, textInputValue))
-            pList.innerText = `${textInputSplit[0].trim()}=${textInputSplit[1].trim()}`
+            pList.innerText = `${textInputName}=${textInputValue}`
             listDiv.appendChild(pList);
             inputText.value = ''
 })
