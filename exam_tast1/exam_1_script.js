@@ -9,7 +9,7 @@ function Text (name,value){
 }
 let textList =[]
 
-
+// Додає об'єкти до списку
 writeValueForm.addEventListener('submit',(e) =>{
         e.preventDefault();
             const textInputS = writeValueForm.textInput.value;
@@ -24,7 +24,7 @@ writeValueForm.addEventListener('submit',(e) =>{
             listDiv.appendChild(pList);
             inputText.value = ''
 })
-
+// Сортування об'єктів за ім'ям в порядку зростання
 buttonsBlock[0].addEventListener('click',(e) =>{
     e.preventDefault();
     let textListNameSort= textList.sort((text1, text2) => text1.name.localeCompare(text2.name));
@@ -35,7 +35,7 @@ buttonsBlock[0].addEventListener('click',(e) =>{
         listDiv.appendChild(sortName);
     }
 })
-
+// Сортування об'єктів за значенням в порядку зростання
 buttonsBlock[1].addEventListener('click',(e)=>{
     e.preventDefault();
     let textListValueSort = textList.sort((text1, text2) => text1.value.localeCompare(text2.value));
@@ -46,7 +46,7 @@ buttonsBlock[1].addEventListener('click',(e)=>{
         listDiv.appendChild(sortValue);
     }
 })
-
+// Видаляє всі об'єкти
 buttonsBlock[2].addEventListener('click',(e)=>{
     e.preventDefault();
     listDiv.innerHTML=''
