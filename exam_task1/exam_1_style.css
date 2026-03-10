@@ -51,6 +51,7 @@ section>div{
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
+
 }
 .blockButton{
     display: flex;
