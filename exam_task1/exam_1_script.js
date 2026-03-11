@@ -4,62 +4,80 @@ const listDiv = document.getElementById('boxList');
 const buttonsBlock = document.getElementsByTagName('button');
 
 
+let textElements =JSON.parse(localStorage.getItem('textElement')) ||[];
 
-
-function Text (name,value){
-    this.name = name;
-    this.value = value
+function saveTextElements(){
+    localStorage.setItem('textElement', JSON.stringify(textElements));
 }
-let textList =[]
 
-
-function deleteSelectionElement (element){
-    element.addEventListener('mousedown',(e)=> {
+function deleteSelectionElement (element,statusText){
+    element.addEventListener('click',(e)=> {
         if(e.target.matches('p')){
-            element.className='deleteElement'
             element.style.background ='red';
+            statusText.status = 'delete';
+            saveTextElements()
         }
     })
 }
 
 // Додає об'єкти до списку
+function renderText(){
+    const pList = document.createElement('p');
+    textElements.forEach(item =>{
+        pList.innerText = `${item.name}=${item.value}`;
+        pList.id=item.id
+        deleteSelectionElement(pList,item);
+        listDiv.appendChild(pList);
+        inputText.value = ''
+        saveTextElements()
+    })
+
+}
+
 writeValueForm.addEventListener('submit',(e) =>{
         e.preventDefault();
-            const textInputS = writeValueForm.textInput.value;
-            const textInputSplit = textInputS.split('=');
-            const textInputName = textInputSplit[0].trim();
-            const textInputValue = textInputSplit[1].trim();
-            let textObj = {textInputName,textInputValue};
-            localStorage.setItem('textObj', JSON.stringify(textObj));
-            const pList = document.createElement('p');
-            textList.push(new Text(textInputName, textInputValue));
-            pList.innerText = `${textInputName}=${textInputValue}`;
-            deleteSelectionElement(pList);
-            listDiv.appendChild(pList);
-            inputText.value = ''
+        const [name,value,status]= writeValueForm.textInput.value.split('=').map(e=>e.trim());
+        if(name && value){
+            textElements.push({name,value, status:''});
+            saveTextElements();
+            renderText();
+            inputText.value = '';
+        }
 })
 
 // Сортування об'єктів за ім'ям в порядку зростання
 buttonsBlock[0].addEventListener('click',(e) =>{
     e.preventDefault();
-    let textListNameSort= textList.sort((text1, text2) => text1.name.localeCompare(text2.name));
-    listDiv.innerText = '';
+    let textListNameSort= textElements.sort((text1, text2) => text1.name.localeCompare(text2.name));
+    listDiv.innerHTML = '';
     for (const textListNameSortElement of textListNameSort) {
         const sortName = document.createElement('p');
         sortName.innerText = `${textListNameSortElement.name}=${textListNameSortElement.value}`;
-        deleteSelectionElement(sortName);
+        // textElements.forEach(item =>{
+        //     sortName.id = item.id;
+        //     item.status = '';
+        //     deleteSelectionElement(sortName,item);
+        //     saveTextElements();
+        // })
+
         listDiv.appendChild(sortName);
     }
 })
 // Сортування об'єктів за значенням в порядку зростання
 buttonsBlock[1].addEventListener('click',(e)=>{
     e.preventDefault();
-    let textListValueSort = textList.sort((text1, text2) => text1.value.localeCompare(text2.value));
+    let textListValueSort = textElements.sort((text1, text2) => text1.value.localeCompare(text2.value));
     listDiv.innerText = '';
     for (const textListValueSortElement of textListValueSort) {
         const sortValue = document.createElement('p');
         sortValue.innerText =`${textListValueSortElement.name}=${textListValueSortElement.value}`;
-        deleteSelectionElement(sortValue);
+        // textElements.forEach(item =>{
+        //     sortValue.id = item.id;
+        //     item.status = '';
+        //     deleteSelectionElement(sortValue,item);
+        //     saveTextElements();
+        // })
+
         listDiv.appendChild(sortValue);
     }
 })
@@ -67,12 +85,8 @@ buttonsBlock[1].addEventListener('click',(e)=>{
 // Видаляє всі об'єкти
 buttonsBlock[2].addEventListener('click',(e)=>{
     e.preventDefault();
-    document.querySelectorAll('.deleteElement').forEach(element => {
-        const [name,value] = element.innerText.split('=').map(item => item.trim())
-        textList = textList.filter( item =>{
-            return item.name !== name && item.value !== value})
-        element.remove();
-
-    })
-
+    textElements.splice(document.querySelectorAll('.deleteElement'))
+    saveTextElements();
+    renderText();
 })
+
