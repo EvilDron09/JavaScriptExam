@@ -13,9 +13,11 @@ function saveTextElements(){
 function deleteSelectionElement (element,statusText){
     element.addEventListener('click',(e)=> {
         if(e.target.matches('p')){
+            element.className = 'deleteElement'
             element.style.background ='red';
             statusText.status = 'delete';
             saveTextElements()
+
         }
     })
 }
@@ -48,45 +50,46 @@ writeValueForm.addEventListener('submit',(e) =>{
 // Сортування об'єктів за ім'ям в порядку зростання
 buttonsBlock[0].addEventListener('click',(e) =>{
     e.preventDefault();
-    let textListNameSort= textElements.sort((text1, text2) => text1.name.localeCompare(text2.name));
+    textElements.sort((text1, text2) => text1.name.localeCompare(text2.name));
     listDiv.innerHTML = '';
-    for (const textListNameSortElement of textListNameSort) {
-        const sortName = document.createElement('p');
-        sortName.innerText = `${textListNameSortElement.name}=${textListNameSortElement.value}`;
-        // textElements.forEach(item =>{
-        //     sortName.id = item.id;
-        //     item.status = '';
-        //     deleteSelectionElement(sortName,item);
-        //     saveTextElements();
-        // })
+        textElements.forEach(item =>{
+            const sortName = document.createElement('p');
+            sortName.innerText = `${item.name}=${item.value}`;
+            sortName.id = item.id;
+            deleteSelectionElement(sortName,item);
+            listDiv.appendChild(sortName);
+            item.status = '';
+            saveTextElements();
 
-        listDiv.appendChild(sortName);
-    }
+        })
 })
-// Сортування об'єктів за значенням в порядку зростання
+
+//Сортування об'єктів за значенням в порядку зростання
 buttonsBlock[1].addEventListener('click',(e)=>{
     e.preventDefault();
-    let textListValueSort = textElements.sort((text1, text2) => text1.value.localeCompare(text2.value));
+    textElements.sort((text1, text2) => text1.value.localeCompare(text2.value));
     listDiv.innerText = '';
-    for (const textListValueSortElement of textListValueSort) {
-        const sortValue = document.createElement('p');
-        sortValue.innerText =`${textListValueSortElement.name}=${textListValueSortElement.value}`;
-        // textElements.forEach(item =>{
-        //     sortValue.id = item.id;
-        //     item.status = '';
-        //     deleteSelectionElement(sortValue,item);
-        //     saveTextElements();
-        // })
-
-        listDiv.appendChild(sortValue);
-    }
+    textElements.forEach(item =>{
+        const sortName = document.createElement('p');
+        sortName.innerText = `${item.name}=${item.value}`;
+        sortName.id = item.id;
+        deleteSelectionElement(sortName,item);
+        listDiv.appendChild(sortName);
+        item.status = '';
+        saveTextElements();
+    })
 })
 
 // Видаляє всі об'єкти
 buttonsBlock[2].addEventListener('click',(e)=>{
     e.preventDefault();
-    textElements.splice(document.querySelectorAll('.deleteElement'))
+   textElements = textElements.filter(item => item.status !== 'delete');
+    saveTextElements();
+    document.querySelectorAll('.deleteElement').forEach(element => element.remove());
+})
+
+window.addEventListener('load',() =>{
+    textElements =[];
     saveTextElements();
     renderText();
 })
-
