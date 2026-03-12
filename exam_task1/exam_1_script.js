@@ -16,21 +16,21 @@ function deleteSelectionElement (element,statusText){
             element.className = 'deleteElement'
             element.style.background ='red';
             statusText.status = 'delete';
-            saveTextElements()
-
         }
+        saveTextElements()
     })
 }
 
 // Додає об'єкти до списку
 function renderText(){
-    const pList = document.createElement('p');
+    listDiv.innerHTML = '';
     textElements.forEach(item =>{
+        const pList = document.createElement('p');
         pList.innerText = `${item.name}=${item.value}`;
-        pList.id=item.id
+        pList.id=item.id ;
+        item.status = '';
         deleteSelectionElement(pList,item);
         listDiv.appendChild(pList);
-        inputText.value = ''
         saveTextElements()
     })
 
