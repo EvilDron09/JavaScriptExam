@@ -1,19 +1,26 @@
+// Variable declarations
+// Оголошення змінних
 const writeValueForm = document.forms.writeValue;
 const inputText = document.getElementById('textInput');
 const listDiv = document.getElementById('boxList');
 const buttonsBlock = document.getElementsByTagName('button');
 
-
+// Creating localStorage
+// Створення localStorage
 let textElements =JSON.parse(localStorage.getItem('textElement')) ||[];
 
+// Adds items to localStorage
+// Додає елементи в localStorage
 function saveTextElements(){
     localStorage.setItem('textElement', JSON.stringify(textElements));
 }
 
+// Selects items to be deleted
+// Виділяє елементи, які будуть видалені
 function deleteSelectionElement (element,statusText){
     element.addEventListener('click',(e)=> {
         if(e.target.matches('p')){
-            element.className = 'deleteElement'
+            element.classList.add('deleteElement')
             element.style.background ='red';
             statusText.status = 'delete';
         }
@@ -21,13 +28,13 @@ function deleteSelectionElement (element,statusText){
     })
 }
 
+// Adds objects to the list
 // Додає об'єкти до списку
 function renderText(){
     listDiv.innerHTML = '';
     textElements.forEach(item =>{
         const pList = document.createElement('p');
         pList.innerText = `${item.name}=${item.value}`;
-        pList.id=item.id ;
         item.status = '';
         deleteSelectionElement(pList,item);
         listDiv.appendChild(pList);
@@ -47,6 +54,7 @@ writeValueForm.addEventListener('submit',(e) =>{
         }
 })
 
+// Sorting objects by name in ascending order
 // Сортування об'єктів за ім'ям в порядку зростання
 buttonsBlock[0].addEventListener('click',(e) =>{
     e.preventDefault();
@@ -55,7 +63,6 @@ buttonsBlock[0].addEventListener('click',(e) =>{
         textElements.forEach(item =>{
             const sortName = document.createElement('p');
             sortName.innerText = `${item.name}=${item.value}`;
-            sortName.id = item.id;
             deleteSelectionElement(sortName,item);
             listDiv.appendChild(sortName);
             item.status = '';
@@ -64,7 +71,8 @@ buttonsBlock[0].addEventListener('click',(e) =>{
         })
 })
 
-//Сортування об'єктів за значенням в порядку зростання
+// Sorting objects by value in ascending order
+// Сортування об'єктів за значенням в порядку зростання
 buttonsBlock[1].addEventListener('click',(e)=>{
     e.preventDefault();
     textElements.sort((text1, text2) => text1.value.localeCompare(text2.value));
@@ -72,7 +80,6 @@ buttonsBlock[1].addEventListener('click',(e)=>{
     textElements.forEach(item =>{
         const sortName = document.createElement('p');
         sortName.innerText = `${item.name}=${item.value}`;
-        sortName.id = item.id;
         deleteSelectionElement(sortName,item);
         listDiv.appendChild(sortName);
         item.status = '';
@@ -80,7 +87,8 @@ buttonsBlock[1].addEventListener('click',(e)=>{
     })
 })
 
-// Видаляє всі об'єкти
+// Deletes selected objects
+// Видаляє виділенні об'єкти
 buttonsBlock[2].addEventListener('click',(e)=>{
     e.preventDefault();
    textElements = textElements.filter(item => item.status !== 'delete');
@@ -88,6 +96,8 @@ buttonsBlock[2].addEventListener('click',(e)=>{
     document.querySelectorAll('.deleteElement').forEach(element => element.remove());
 })
 
+// Removes all elements on page reload
+// Видаляє всі елементи при перезавантаженні сторінки
 window.addEventListener('load',() =>{
     textElements =[];
     saveTextElements();
