@@ -1,4 +1,31 @@
+
 #users{
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(2, 30vw);
+    grid-template-columns: repeat(2, 350px);
+    justify-content: space-around;
+    gap: 20px;
+}
+
+div{
+    width: 300px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    border: black solid 2px;
+    border-radius: 5px;
+}
+
+p{
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+button{
+    margin-bottom: 10px;
+}
+button:active{
+    background: purple;
+    color: white;
 }

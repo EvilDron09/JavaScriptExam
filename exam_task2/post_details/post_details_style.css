@@ -1,0 +1,23 @@
+section{
+    display: flex;
+    flex-direction: column;
+}
+
+section>p{
+    font-size: 25px;
+}
+
+#comments{
+    display: grid;
+    grid-template-columns: repeat(4, 470px);
+    row-gap: 30px;
+}
+#comments>div{
+    width: 450px;
+    border: black solid 2px;
+    border-radius: 2px;
+    margin-left: 10px;
+}
+#comments>div>h3,#comments>div>p{
+    margin: 10px;
+}

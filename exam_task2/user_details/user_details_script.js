@@ -1,13 +1,13 @@
 const textValue = document.getElementsByTagName('p');
-const posts = document.getElementById('posts');
+const openPostsButton = document.getElementById('openPosts');
+const postsDiv = document.getElementById('posts');
 
-const urlParams = new URLSearchParams(window.location.search);
-const urlUserId = urlParams.get('id');
+const urlUser = new URLSearchParams(window.location.search);
+const urlUserId = urlUser.get('id');
 
 fetch(`https://jsonplaceholder.typicode.com/users?id=${urlUserId}`)
     .then(response => response.json())
     .then(user => {
-        console.log(user);
         for (const element of user) {
             textValue[0].innerText = `ID: ${element.id}`;
             textValue[1].innerText = `Name: ${element.name}`;
@@ -25,4 +25,24 @@ fetch(`https://jsonplaceholder.typicode.com/users?id=${urlUserId}`)
             Email: ${element.email}
             Phone: ${element.phone}`;
         }
+        openPostsButton.addEventListener('click',() =>{
+            fetch(`https://jsonplaceholder.typicode.com/users/${urlUserId}/posts`)
+                .then(response => response.json())
+                .then(posts => {
+                    postsDiv.innerText=''
+                    for (const post of posts) {
+                        const postDiv = document.createElement('div');
+                        const postTitle = document.createElement('p');
+                        postTitle.innerText =`${post.title}`;
+                        const commentsButton = document.createElement('button');
+                        commentsButton.innerText = `Comments`
+                        commentsButton.addEventListener('click',() =>{
+                            window.location.href = `../post_details/post_details.html?id=${post.id}`
+                        })
+                        postDiv.append(postTitle,commentsButton);
+                        postsDiv.append(postDiv);
+                    }
+
+                })
+        })
     });
