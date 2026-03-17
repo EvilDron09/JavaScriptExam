@@ -58,7 +58,20 @@ writeValueForm.addEventListener('submit',(e) =>{
 // Сортування об'єктів за ім'ям в порядку зростання
 buttonsBlock[0].addEventListener('click',(e) =>{
     e.preventDefault();
-    textElements.sort((text1, text2) => text1.name.localeCompare(text2.name));
+    textElements.sort((text1, text2) => {
+        const valueName1 = text1.name;
+        const valueName2 = text2.name
+        const textNumName1 = parseFloat(valueName1);
+        const textNumName2 = parseFloat(valueName2);
+        const textNumberName1 = !isNaN(textNumName1) && isFinite(valueName1);
+        const textNumberName2 = !isNaN(textNumName2) && isFinite(valueName2);
+        if (textNumberName1 && textNumberName2){
+          return textNumName1-textNumName2
+        }
+        if (textNumberName1) return -1;
+        if (textNumberName2) return 1;
+        return valueName1.localeCompare(valueName2);
+    });
     listDiv.innerHTML = '';
         textElements.forEach(item =>{
             const sortName = document.createElement('p');
@@ -75,7 +88,20 @@ buttonsBlock[0].addEventListener('click',(e) =>{
 // Сортування об'єктів за значенням в порядку зростання
 buttonsBlock[1].addEventListener('click',(e)=>{
     e.preventDefault();
-    textElements.sort((text1, text2) => text1.value.localeCompare(text2.value));
+    textElements.sort((text1, text2) => {
+        const valueText1 = text1.value;
+        const valueText2 = text2.value;
+        const textNumValue1 = parseFloat(valueText1);
+        const textNumValue2 = parseFloat(valueText2);
+        const textNumberValue1 = !isNaN(textNumValue1) && isFinite(valueText1);
+        const textNumberValue2 = !isNaN(textNumValue2) && isFinite(valueText2);
+        if (textNumberValue1 && textNumberValue2){
+            return textNumValue1-textNumValue2;
+        }
+        if (textNumberValue1) return -1;
+        if (textNumberValue2) return 1;
+         return valueText1.localeCompare(valueText2);
+    });
     listDiv.innerText = '';
     textElements.forEach(item =>{
         const sortName = document.createElement('p');
