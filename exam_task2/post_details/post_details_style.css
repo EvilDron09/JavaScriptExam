@@ -3,7 +3,12 @@ section{
     flex-direction: column;
 }
 
-section>p{
+.post{
+    padding-left: 20px;
+    background: aquamarine;
+}
+
+section>div>p{
     font-size: 25px;
 }
 

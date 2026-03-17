@@ -8,7 +8,9 @@ section{
     width: 100%;
     display: flex;
     justify-content: space-around;
+    background: aquamarine;
 }
+
 
 #openPosts{
     width: 90%;
