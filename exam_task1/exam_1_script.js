@@ -61,16 +61,20 @@ buttonsBlock[0].addEventListener('click',(e) =>{
     textElements.sort((text1, text2) => {
         const valueName1 = text1.name;
         const valueName2 = text2.name
-        const textNumName1 = parseFloat(valueName1);
-        const textNumName2 = parseFloat(valueName2);
-        const textNumberName1 = !isNaN(textNumName1) && isFinite(valueName1);
-        const textNumberName2 = !isNaN(textNumName2) && isFinite(valueName2);
+        const textNumName1 = Number(valueName1);
+        const textNumName2 = Number(valueName2);
+        const textNumberName1 = !isNaN(textNumName1);
+        const textNumberName2 = !isNaN(textNumName2);
         if (textNumberName1 && textNumberName2){
           return textNumName1-textNumName2
         }
-        if (textNumberName1) return -1;
-        if (textNumberName2) return 1;
-        return valueName1.localeCompare(valueName2);
+        if(textNumName1 && !textNumberName2) return -1;
+        if(!textNumName1 && textNumberName2) return 1;
+        const textNameUp1 = valueName1[0] === valueName1[0].toUpperCase();
+        const textNameUp2 = valueName2[0] === valueName2[0].toUpperCase();
+        if(textNameUp1 && !textNameUp2) return -1;
+        if(!textNameUp1 && textNameUp2) return 1;
+        return valueName1.localeCompare(valueName2,['en','uk'],{caseFirst:'upper'});
     });
     listDiv.innerHTML = '';
         textElements.forEach(item =>{
@@ -91,16 +95,20 @@ buttonsBlock[1].addEventListener('click',(e)=>{
     textElements.sort((text1, text2) => {
         const valueText1 = text1.value;
         const valueText2 = text2.value;
-        const textNumValue1 = parseFloat(valueText1);
-        const textNumValue2 = parseFloat(valueText2);
-        const textNumberValue1 = !isNaN(textNumValue1) && isFinite(valueText1);
-        const textNumberValue2 = !isNaN(textNumValue2) && isFinite(valueText2);
+        const textNumValue1 = Number(valueText1);
+        const textNumValue2 = Number(valueText2);
+        const textNumberValue1 = !isNaN(textNumValue1);
+        const textNumberValue2 = !isNaN(textNumValue2);
         if (textNumberValue1 && textNumberValue2){
             return textNumValue1-textNumValue2;
         }
-        if (textNumberValue1) return -1;
-        if (textNumberValue2) return 1;
-         return valueText1.localeCompare(valueText2);
+        if(textNumberValue1 && !textNumberValue2) return -1;
+        if(!textNumberValue1 && textNumberValue2) return 1;
+        const textValueUp1 = valueText1[0] === valueText1[0].toUpperCase();
+        const textValueUp2 = valueText2[0] === valueText2[0].toUpperCase();
+        if(textValueUp1 && !textValueUp2) return -1;
+        if(!textValueUp1 && textValueUp2) return 1;
+      return valueText1.localeCompare(valueText2,['en','uk'], {caseFirst:'upper'});
     });
     listDiv.innerText = '';
     textElements.forEach(item =>{
